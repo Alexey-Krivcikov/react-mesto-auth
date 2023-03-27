@@ -1,7 +1,9 @@
 import React from "react";
+import { Route, Routes } from "react-router-dom";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
+import Login from "./Login";
 import PopupWithForm from "./PopupWithForm";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
@@ -115,8 +117,15 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header />
+      <Login></Login>
+      {/* <Routes>
+        <Route>
 
-      <Main
+        </Route>
+        <Route>
+
+        </Route> */}
+      {/* <Main
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
@@ -124,7 +133,8 @@ function App() {
         onCardLike={handleCardLike}
         onCardDelete={handleCardDelete}
         cards={cards}
-      />
+      /> */}
+      {/* </Routes> */}
 
       <Footer />
 
