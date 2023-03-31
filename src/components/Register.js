@@ -1,10 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-function Login({ handleSubmitLogin, handleEmailChange, handlePasswordChange }) {
+function Register({
+  handleEmailChange,
+  handlePasswordChange,
+  handleSubmitRegister,
+}) {
   return (
     <div className="login">
-      <h2 className="login__header">Вход</h2>
-      <form onSubmit={handleSubmitLogin} className="login-form" name="login">
+      <h2 className="login__header">Регистрация</h2>
+      <form onSubmit={handleSubmitRegister} className="login-form" name="login">
         <input
           onChange={handleEmailChange}
           className="login-form__input"
@@ -23,11 +28,14 @@ function Login({ handleSubmitLogin, handleEmailChange, handlePasswordChange }) {
           required
         ></input>
         <button className="login-form__submit-btn" type="submit">
-          Войти
+          Зарегистрироваться
         </button>
       </form>
+      <Link to="/sign-in" className="login__sing-in">
+        Уже зарегистрированы? Войти
+      </Link>
     </div>
   );
 }
 
-export default Login;
+export default Register;

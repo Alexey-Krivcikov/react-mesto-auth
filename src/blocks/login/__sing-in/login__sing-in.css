@@ -5,4 +5,9 @@
   text-align: center;
   color: #FFFFFF;
   text-decoration: none;
+  transition: .5s opacity;
+}
+
+.login__sing-in:hover {
+  opacity: 0.6;
 }

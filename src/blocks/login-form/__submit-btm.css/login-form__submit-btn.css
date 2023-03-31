@@ -10,4 +10,10 @@
   line-height: 22px;
   text-align: center;
   color: #000000;
+  transition: opacity .5s;
+}
+
+.login-form__submit-btn:hover {
+  opacity: 0.85;
+  cursor: pointer;
 }
