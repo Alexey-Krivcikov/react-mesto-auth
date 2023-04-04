@@ -1,29 +1,21 @@
 import React from "react";
 import PopupWithForm from "./PopupWithForm";
+import { useForm } from "../hooks/useForm";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
-  const [name, setName] = React.useState("");
-  const [link, setLink] = React.useState("");
-
-  function handleSetName(e) {
-    setName(e.target.value);
-  }
-  function handleSetLink(e) {
-    setLink(e.target.value);
-  }
+  const { values, handleChange, setValues } = useForm({
+    name: "",
+    link: "",
+  });
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    onAddPlaceSubmit({
-      name,
-      link,
-    });
+    onAddPlaceSubmit(values);
   }
 
   React.useEffect(() => {
-    setName("");
-    setLink("");
+    setValues("");
   }, [isOpen]);
 
   return (
@@ -35,8 +27,8 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
       title="Новое место"
     >
       <input
-        onChange={handleSetName}
-        value={name}
+        onChange={handleChange}
+        value={values.name}
         className="popup__input popup__input_type_card-name"
         placeholder="Название"
         id="card-name"
@@ -48,8 +40,8 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
       />
       <span className="popup__input-err card-name-error"></span>
       <input
-        onChange={handleSetLink}
-        value={link}
+        onChange={handleChange}
+        value={values.link}
         className="popup__input popup__input_type_card-link"
         placeholder="Ссылка на картинку"
         id="card-link"

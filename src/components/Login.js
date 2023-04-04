@@ -1,6 +1,12 @@
 import React from "react";
 
-function Login({ handleSubmitLogin, handleEmailChange, handlePasswordChange }) {
+function Login({
+  handleSubmitLogin,
+  handleEmailChange,
+  handlePasswordChange,
+  email,
+  password,
+}) {
   return (
     <div className="login">
       <h2 className="login__header">Вход</h2>
@@ -11,6 +17,7 @@ function Login({ handleSubmitLogin, handleEmailChange, handlePasswordChange }) {
           type="email"
           name="email"
           placeholder="Email"
+          value={email}
           required
         ></input>
         <input
@@ -19,6 +26,7 @@ function Login({ handleSubmitLogin, handleEmailChange, handlePasswordChange }) {
           type="password"
           name="password"
           placeholder="Пароль"
+          value={password}
           minLength="6"
           required
         ></input>

@@ -21,12 +21,12 @@ function App() {
   // хуки состояния
   const [isEditProfilePopupOpen, SetEditProfilePopupOpen] =
     React.useState(false);
-  const [isAddPlacePopupOpen, SetAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, SetEditAvatarPopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = React.useState(false);
   const [cards, setCards] = React.useState([]);
   const [selectedCard, setSelectedCard] = React.useState(null);
-  const [currentUser, SetCurrentUser] = React.useState({});
+  const [currentUser, setCurrentUser] = React.useState({});
   //
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [email, setEmail] = React.useState("");
@@ -41,17 +41,17 @@ function App() {
   }
 
   function handleAddPlaceClick() {
-    SetAddPlacePopupOpen(true);
+    setAddPlacePopupOpen(true);
   }
 
   function handleEditAvatarClick() {
-    SetEditAvatarPopupOpen(true);
+    setEditAvatarPopupOpen(true);
   }
 
   function closeAllPopups() {
     SetEditProfilePopupOpen(false);
-    SetAddPlacePopupOpen(false);
-    SetEditAvatarPopupOpen(false);
+    setAddPlacePopupOpen(false);
+    setEditAvatarPopupOpen(false);
     setIsRegisterPopupOpen(false);
     setSelectedCard(null);
   }
@@ -87,7 +87,7 @@ function App() {
     api
       .setUserInfo(userData)
       .then((newUserData) => {
-        SetCurrentUser(newUserData);
+        setCurrentUser(newUserData);
         closeAllPopups();
       })
       .catch((err) => {
@@ -99,7 +99,7 @@ function App() {
     api
       .setAvatar(userAvatar)
       .then((newUserAvatar) => {
-        SetCurrentUser(newUserAvatar);
+        setCurrentUser(newUserAvatar);
         closeAllPopups();
       })
       .catch((err) => {
@@ -123,7 +123,7 @@ function App() {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then(([userInfo, cards]) => {
         setCards(cards);
-        SetCurrentUser(userInfo);
+        setCurrentUser(userInfo);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -155,7 +155,7 @@ function App() {
     const token = localStorage.getItem("token");
     if (token) {
       auth
-        .getContent(token)
+        .checkToken(token)
         .then((res) => {
           if (res) {
             const userData = {
@@ -163,7 +163,7 @@ function App() {
             };
             setEmail(userData.email);
             setLoggedIn(true);
-            SetCurrentUser((data) => ({ ...data, userData }));
+            setCurrentUser((data) => ({ ...data, userData }));
             navigate("/", { replace: true });
           }
         })
@@ -179,13 +179,14 @@ function App() {
         if (res) {
           setRegisterInfo("Вы успешно зарегистрировались!");
           setRegisterStatus(true);
-          handleRegister();
           navigate("/sign-in", { replace: true });
         }
       })
       .catch((err) => {
         console.log(err);
         setRegisterInfo("Что-то пошло не так! Попробуйте ещё раз.");
+      })
+      .finally(() => {
         handleRegister();
       });
   };
@@ -210,7 +211,7 @@ function App() {
   };
 
   return (
-    <div>
+    <>
       <CurrentUserContext.Provider value={currentUser}>
         <Header email={email} signOut={signOut} />
 
@@ -235,6 +236,8 @@ function App() {
             path="/sign-up"
             element={
               <Register
+                email={email}
+                password={password}
                 handleEmailChange={handleEmailChange}
                 handlePasswordChange={handlePasswordChange}
                 handleSubmitRegister={handleSubmitRegister}
@@ -245,6 +248,8 @@ function App() {
             path="/sign-in"
             element={
               <Login
+                email={email}
+                password={password}
                 handleEmailChange={handleEmailChange}
                 handlePasswordChange={handlePasswordChange}
                 handleSubmitLogin={handleSubmitLogin}
@@ -290,7 +295,7 @@ function App() {
 
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       </CurrentUserContext.Provider>
-    </div>
+    </>
   );
 }
 

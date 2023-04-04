@@ -20,7 +20,6 @@ function PopupWithForm({
           onSubmit={onSubmit}
           className="popup__form"
           action="#"
-          method="get"
           name={name}
         >
           {children}

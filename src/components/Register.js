@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function Register({
+  email,
+  password,
   handleEmailChange,
   handlePasswordChange,
   handleSubmitRegister,
@@ -16,6 +18,7 @@ function Register({
           type="email"
           name="email"
           placeholder="Email"
+          value={email}
           required
         ></input>
         <input
@@ -25,6 +28,7 @@ function Register({
           name="password"
           placeholder="Пароль"
           minLength="6"
+          value={password}
           required
         ></input>
         <button className="login-form__submit-btn" type="submit">
