@@ -28,6 +28,7 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState({});
   //
+  const [isLoading, setIsLoading] = React.useState(false);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -77,13 +78,14 @@ function App() {
   function handleCardDelete(card) {
     api
       .deleteCard(card._id)
-      .then((newCard) => {
-        setCards(cards.filter((c) => (c._id === card._id ? "" : newCard)));
+      .then(() => {
+        setCards((state) => state.filter((item) => item._id !== card._id));
       })
       .catch((err) => console.log(err));
   }
 
   function handleUpdateUser(userData) {
+    setIsLoading(true);
     api
       .setUserInfo(userData)
       .then((newUserData) => {
@@ -92,10 +94,12 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(() => setIsLoading(false));
   }
 
   function handleUpdateAvatar(userAvatar) {
+    setIsLoading(true);
     api
       .setAvatar(userAvatar)
       .then((newUserAvatar) => {
@@ -104,10 +108,12 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(() => setIsLoading(false));
   }
 
   function handleAddPlaceSubmit(cardData) {
+    setIsLoading(true);
     api
       .addNewCard(cardData)
       .then((newCardData) => {
@@ -116,7 +122,8 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(() => setIsLoading(false));
   }
 
   React.useEffect(() => {
@@ -264,12 +271,14 @@ function App() {
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
+          isLoading={isLoading}
         />
 
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onAddPlaceSubmit={handleAddPlaceSubmit}
+          isLoading={isLoading}
         />
 
         <PopupWithForm
@@ -282,6 +291,7 @@ function App() {
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
+          isLoading={isLoading}
           name="avatar"
           title="Обновить аватар"
         />

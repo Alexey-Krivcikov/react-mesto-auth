@@ -2,7 +2,7 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm";
 import { useForm } from "../hooks/useForm";
 
-function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
+function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit, isLoading }) {
   const { values, handleChange, setValues } = useForm({
     name: "",
     link: "",
@@ -15,7 +15,10 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
   }
 
   React.useEffect(() => {
-    setValues("");
+    setValues({
+      name: "",
+      link: "",
+    });
   }, [isOpen]);
 
   return (
@@ -23,6 +26,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      isLoading={isLoading}
       name="card-add"
       title="Новое место"
     >
