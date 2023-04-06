@@ -2,7 +2,7 @@
 
 ## Ссылка на сайт:
 
-https://alexey-krivcikov.github.io/mesto-react/
+https://alexey-krivcikov.github.io/react-mesto-auth/
 
 ### _Проектная работа №11, 12 от [Яндекс.Практикум](https://practicum.yandex.ru/web/)_
 
