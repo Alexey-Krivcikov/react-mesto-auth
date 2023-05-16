@@ -101,6 +101,7 @@ const api = new Api({
   headers: {
     // authorization: "13de05b0-eaab-40cb-aa9f-faea16b25706",
     "Content-Type": "application/json",
+    credentials: "include",
   },
 });
 
