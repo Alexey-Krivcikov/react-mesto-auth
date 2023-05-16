@@ -31,6 +31,7 @@ class Api {
     return this._request(`${this._baseUrl}/users/me`, {
       headers: this._headers,
       method: "PATCH",
+      credentials: "include",
       body: JSON.stringify({
         name: userData.name,
         about: userData.about,
@@ -42,6 +43,7 @@ class Api {
     return this._request(`${this._baseUrl}/cards`, {
       headers: this._headers,
       method: "POST",
+      credentials: "include",
       body: JSON.stringify({
         name: cardData.name,
         link: cardData.link,
@@ -53,6 +55,7 @@ class Api {
     return this._request(`${this._baseUrl}/cards/${cardId}`, {
       headers: this._headers,
       method: "DELETE",
+      credentials: "include",
     });
   }
 
@@ -60,6 +63,7 @@ class Api {
     return this._request(`${this._baseUrl}/users/me/avatar`, {
       headers: this._headers,
       method: "PATCH",
+      credentials: "include",
       body: JSON.stringify({
         avatar: data.avatar,
       }),
@@ -70,6 +74,7 @@ class Api {
     return this._request(`${this._baseUrl}/cards/${cardId}/likes`, {
       headers: this._headers,
       method: "PUT",
+      credentials: "include",
     });
   }
 
@@ -77,6 +82,7 @@ class Api {
     return this._request(`${this._baseUrl}/cards/${cardId}/likes`, {
       headers: this._headers,
       method: "DELETE",
+      credentials: "include",
     });
   }
 
@@ -84,6 +90,7 @@ class Api {
     return this._request(`${this._baseUrl}/cards/${cardId}/likes`, {
       headers: this._headers,
       method: isLiked ? "PUT" : "DELETE",
+      credentials: "include",
     });
   }
 }
