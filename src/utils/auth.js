@@ -10,7 +10,6 @@ function request(url, options) {
 export const register = (email, password) => {
   return request(`${BASE_URL}/signup`, {
     method: "POST",
-    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
@@ -21,7 +20,6 @@ export const register = (email, password) => {
 export const authorize = (email, password) => {
   return request(`${BASE_URL}/signin`, {
     method: "POST",
-    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
@@ -38,7 +36,6 @@ export const authorize = (email, password) => {
 export const checkToken = (token) => {
   return request(`${BASE_URL}/users/me`, {
     method: "GET",
-    credentials: "include",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
